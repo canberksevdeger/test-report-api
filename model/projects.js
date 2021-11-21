@@ -1,4 +1,4 @@
-let projectsObj = [
+let projectsArray = [
   {
     id: '1',
     name: 'Powerbuy'
@@ -14,5 +14,5 @@ let projectsObj = [
 ]
 
 module.exports = {
-  projectsObj
+  projectsArray
 }

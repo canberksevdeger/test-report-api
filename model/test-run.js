@@ -17,8 +17,8 @@ const generateTestRunArray = (numUsers) => {
   return Array.from({ length: numUsers }, generateTestRun);
 };
 
-let testRunObj = generateTestRunArray(10);
+let testRunArray = generateTestRunArray(10);
 
 module.exports = {
-  testRunObj
+  testRunArray
 }

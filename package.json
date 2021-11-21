@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/canberksevdeger/test-report-api#readme",
   "dependencies": {
-    "fastify": "^3.24.0"
+    "dotenv": "^8.2.0",
+    "faker": "^5.5.3",
+    "fastify": "^3.24.0",
+    "fastify-auth0-verify": "^0.6.0"
   },
   "devDependencies": {
     "prettier": "2.4.1"

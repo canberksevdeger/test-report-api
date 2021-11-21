@@ -1,35 +1,75 @@
 const fastify = require("fastify")({ logger: true });
+const config = require( "dotenv" ).config();
+const util = require( "util" );
+const projectObj = require('./model/projects')
+const testRunObj = require('./model/test-run')
+
+fastify.register(require('fastify-auth0-verify'), {
+  domain: process.env.DOMAIN,
+  secret: process.env.CLIENT_SECRET
+})
 
 fastify.route({
   method: "GET",
-  url: "/",
+  url: "/projects",
   schema: {
-    // request needs to have a querystring with a `name` parameter
-    querystring: {
-      name: { type: "string" },
-    },
-    // the response needs to be an object with an `hello` property of type 'string'
     response: {
       200: {
-        type: "object",
+        type: "array",
         properties: {
-          hello: { type: "string" },
+          id: { type: "number" },
+          name: { type: "string" }
         },
       },
     },
   },
-  // this function is executed for every request before the handler is executed
+
   preHandler: async (request, reply) => {
-    // E.g. check authentication
+
   },
   handler: async (request, reply) => {
-    return { hello: "world" };
+    return projectObj.projectsObj;
+  },
+});
+
+fastify.route({
+  method: "GET",
+  url: "/results/:projectId",
+  schema: {
+
+    querystring: {
+      id: { type: "string" },
+    },
+
+    response: {
+      200: {
+        type: "array",
+        properties: {
+          runId: { type: "number" },
+          status: { type: "boolean" },
+          testTotal: { type: "number" },
+          testPassed: { type: "number" },
+          testFailed: { type: "number" },
+          duration: { type: "number" },
+          timeStarted: { type: "string", format: 'date-time' },
+          timeFinished: { type: "string", format: 'date-time' }
+        },
+      },
+    },
+  },
+
+  preHandler: async (request, reply) => {
+
+  },
+  handler: async (request, reply) => {
+    console.log(testRunObj.testRunObj)
+    return testRunObj.testRunObj;
   },
 });
 
 const start = async () => {
   try {
-    await fastify.listen(3000);
+    await fastify.listen(process.env.PORT || 3000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

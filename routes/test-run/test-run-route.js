@@ -2,7 +2,7 @@ const testRunArray = require("../../model/test-run");
 
 module.exports.testRunRouteConfig = {
   method: "GET",
-  url: "/results/:projectId",
+  url: "/api/v1/results/:projectId",
   schema: {
 
     querystring: {
@@ -27,7 +27,11 @@ module.exports.testRunRouteConfig = {
   },
 
   preHandler: async (request, reply) => {
-
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
   },
   handler: async (request, reply) => {
     return testRunArray.testRunArray;

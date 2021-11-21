@@ -2,7 +2,7 @@ let stabilityArray = require("../../model/stability").stabilityArray;
 
 module.exports.stabilityRouteConfig = {
   method: "POST",
-  url: "/stability",
+  url: "/api/v1/stability",
   schema: {
     body: {
       id: { type: "number" },
@@ -28,7 +28,11 @@ module.exports.stabilityRouteConfig = {
   },
 
   preHandler: async (request, reply) => {
-
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
   },
   handler: async (request, reply) => {
     const newStabilityObj = {

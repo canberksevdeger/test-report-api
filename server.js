@@ -6,7 +6,7 @@ const routeController = require('./routes/routes-controller')
 fastify.register(require('fastify-auth0-verify'), {
   domain: process.env.DOMAIN,
   secret: process.env.CLIENT_SECRET
-})
+});
 
 routeController.setRoutes(fastify);
 

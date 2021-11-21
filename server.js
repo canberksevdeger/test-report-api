@@ -15,7 +15,7 @@ fastify.route({
   schema: {
     response: {
       200: {
-        type: "string",
+        type: "object",
         properties: {
           hello: { type: "string" }
         },
@@ -27,7 +27,7 @@ fastify.route({
 
   },
   handler: async (request, reply) => {
-    return {hello: 'world'};
+    reply.send({hello: 'world'});
   },
 });
 

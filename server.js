@@ -11,6 +11,28 @@ fastify.register(require('fastify-auth0-verify'), {
 
 fastify.route({
   method: "GET",
+  url: "/",
+  schema: {
+    response: {
+      200: {
+        type: "string",
+        properties: {
+          hello: { type: "string" }
+        },
+      },
+    },
+  },
+
+  preHandler: async (request, reply) => {
+
+  },
+  handler: async (request, reply) => {
+    return {hello: 'world'};
+  },
+});
+
+fastify.route({
+  method: "GET",
   url: "/projects",
   schema: {
     response: {
@@ -62,7 +84,6 @@ fastify.route({
 
   },
   handler: async (request, reply) => {
-    console.log(testRunObj.testRunObj)
     return testRunObj.testRunObj;
   },
 });
